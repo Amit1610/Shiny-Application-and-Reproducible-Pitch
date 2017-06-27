@@ -1,0 +1,92 @@
+---
+title: 'Peer-graded Assignment: Course Project: Shiny Application and Reproducible
+  Pitch'
+author: "Amit Kumar"
+date: "June 26, 2017"
+output:
+  beamer_presentation: default
+  slidy_presentation: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Overview: 
+This presentation is developed as part of a deliverable for the course Developing Data Products as part of the Coursera Data Science Specialization.
+
+The app developed for the first part of the assignment demo is avalilable at:
+............................................
+
+Source code for ui.R and server.R files are available on the GitHub repo: 
+...............................................
+
+
+
+## Web Application functionality
+
+- The Application is useful to predict the Milage of the cars if the specifications about the car is known/provided; 
+- The intended audiuence of this application amy include people trying to understand the Fuel Economy or Milage before making a puchase or rental decision. 
+- I have used the Multiple Regression Model to predict the Miles per Gallon (MPG) based on the mtcars data, which is available and familliar to all the participants of Coursera Data Science Specilization Program. 
+- I require you provide the Specifications of the car understnd consideration and the application results in Prediction for "Miles Per Gallon" i.e., MPG for that car. 
+
+- You may choose your desire cars characteristic in term of : Cylinders, Displacement, Horse Power and Transmission etc.
+
+The result contains filters selected cars will show in a table on the main content with using the mtcars dataset from [R].
+
+## Slide with R Output (Data Summary)
+
+```{r, echo = TRUE}
+summary(mtcars)
+```
+
+## Slide R Codes 
+
+```{r, echo = TRUE}
+my_data <- mtcars
+my_data$cyl <- factor(my_data$cyl)
+str(my_data)
+require(ggpubr)
+```
+
+## Slide with Plots: 
+
+```{r, echo = FALSE}
+ggscatter(my_data, x = "wt", y = "mpg",
+          add = "reg.line", conf.int = TRUE,
+          cor.coef = TRUE, cor.method = "pearson",
+          xlab = "Weight (1000 lbs)", ylab = "Miles/ (US) gallon")
+ggqqplot(my_data$mpg, ylab = "MPG")
+ggqqplot(my_data$wt, ylab = "WT")
+```
+
+## Slide with Regression Equation: 
+
+```{r, echo = FALSE}
+fit2 <- glm(mpg ~ cyl + disp + hp + drat + wt + qsec + vs + am + gear + carb, data=mtcars)
+summary(fit2)
+```
+
+
+## Slide with Diagnostic Plots: 
+
+```{r, echo = TRUE}
+layout(matrix(c(1,2,3,4),2,2))
+plot(fit2)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
